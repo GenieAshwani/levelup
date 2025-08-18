@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeForSuccess - Practice Sheets</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="/img/logo.png" />
+  </head>
+  <body>
+    <canvas id="bgCanvas"></canvas>
+    <!-- Gradient Backgrounds -->
+    <div class="gradient-top-right"></div>
+    <div class="gradient-bottom-left"></div>
+    <div class="blur-circle-1"></div>
+    <div class="blur-circle-2"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="logo-title">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <a
+            href="https://codeforsuccess.in"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+              text-decoration: none;
+              color: inherit;
+            "
+          >
+            <img src="/img/logo.png" alt="logo" class="logo" />
+            <span class="brand">CodeForSuccess</span>
+          </a>
+          <span class="page-title">Practice Sheets</span>
+        </div>
+        <div class="header-buttons">
+          <a href="/courses" class="btn-secondary">Courses</a>
+          <a href="app.codeforsuccess.in/web/" class="btn-primary">Log In</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <select class="dropdown">
+            <option>DSA Sheet</option>
+          </select>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by title, topic..."
+            class="search-input"
+          />
+        </div>
+
+        <div class="sidebar-scrollable-content">
+          <h2 class="section-title">Topics</h2>
+          <ul id="topicsList" class="topics-list"></ul>
+
+          <div class="patterns-section">
+            <h2 class="section-title">Select Pattern</h2>
+            <ul id="patternsList" class="patterns-list"></ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Questions Section -->
+      <main class="questions-container">
+        <!-- Difficulty Buttons -->
+        <div class="difficulty-filters">
+          <button class="difficulty-btn active" data-difficulty="All">
+            All
+          </button>
+          <button class="difficulty-btn" data-difficulty="Easy">Easy</button>
+          <button class="difficulty-btn" data-difficulty="Medium">
+            Medium
+          </button>
+          <button class="difficulty-btn" data-difficulty="Hard">Hard</button>
+        </div>
+
+        <!-- Questions Grid -->
+        <div id="questionsGrid" class="questions-grid"></div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let particles = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function createParticles() {
+        particles = [];
+        const particleCount = window.innerWidth < 768 ? 30 : 50; // Fewer particles on mobile
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            dx: (Math.random() - 0.5) * 0.3,
+            dy: (Math.random() - 0.5) * 0.3,
+          });
+        }
+      }
+
+      function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#2feaaa";
+        ctx.globalAlpha = 0.6;
+        particles.forEach((p) => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+          p.x += p.dx;
+          p.y += p.dy;
+
+          // wrap around screen
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+        });
+      }
+
+      function animate() {
+        drawParticles();
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener("resize", () => {
+        resizeCanvas();
+        createParticles();
+      });
+
+      resizeCanvas();
+      createParticles();
+      animate();
+    </script>
+  </body>
+</html>
