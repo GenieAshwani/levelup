@@ -17,6 +17,14 @@
     "link": "https://www.geeksforgeeks.org/maximum-and-minimum-in-an-array/"
   },
   {
+    "title": "Kth Largest Element in an Array",
+    "description": "Single pass tracking current minimum and maximum.",
+    "topic": "Array",
+    "pattern": "General",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/kth-largest-element-in-an-array/description/"
+  },
+  {
     "title": "Cyclically rotate by 1",
     "description": "Rotate array by one position using temp+shift or reverse trick.",
     "topic": "Array",
@@ -28,7 +36,7 @@
     "title": "Move negatives to one side (order not preserved)",
     "description": "Partition array so negatives move to one side; order irrelevant.",
     "topic": "Array",
-    "pattern": "Sorting & Partitioning",
+    "pattern": "Sorting & Two Pointers",
     "difficulty": "Easy",
     "link": "https://www.geeksforgeeks.org/move-negative-numbers-beginning-positive-end-constant-extra-space/",
     "veryImportant": true
@@ -37,12 +45,12 @@
     "title": "Move negatives (order preserved / stable)",
     "description": "Stable partition to keep the relative order of elements.",
     "topic": "Array",
-    "pattern": "Sorting & Partitioning",
+    "pattern": "Sorting & Two Pointers",
     "difficulty": "Medium",
     "link": "https://www.geeksforgeeks.org/stable-approach-to-segregate-positive-and-negative-numbers/"
   },
   {
-    "title": "Rearrange +/- alternately (O(1) extra space)",
+    "title": "Rearrange +/- alternately",
     "description": "Alternate positives and negatives in-place with O(1) extra space.",
     "topic": "Array",
     "pattern": "Two Pointers",
@@ -50,20 +58,20 @@
     "link": "https://www.geeksforgeeks.org/rearrange-array-alternating-positive-negative-items-o1-extra-space/"
   },
   {
-    "title": "Three-way partition around a value",
-    "description": "Partition into < key, == key, and > key in linear time.",
-    "topic": "Array",
-    "pattern": "Sorting & Partitioning",
-    "difficulty": "Medium",
-    "link": "https://www.geeksforgeeks.org/three-way-partitioning-of-an-array-around-a-given-value/"
-  },
-  {
-    "title": "Minimum swaps to group elements ≤ K together",
+    "title": "Minimum swaps required to bring all elements less than or equal to k together",
     "description": "Sliding window to minimize swaps grouping elements ≤ K together.",
     "topic": "Array",
     "pattern": "Sliding Window",
     "difficulty": "Medium",
-    "link": "https://www.geeksforgeeks.org/minimum-swaps-required-group-elements-less-equal-k-together/"
+    "link": "https://www.geeksforgeeks.org/problems/minimum-swaps-required-to-bring-all-elements-less-than-or-equal-to-k-together4847/1"
+  },
+  {
+    "title": "MMinimum Swaps to Group All 1's Together II",
+    "description": "Sliding window to minimize swaps grouping elements ≤ K together.",
+    "topic": "Array",
+    "pattern": "Sliding Window",
+    "difficulty": "Medium",
+    "link": "https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together-ii/description/"
   },
   {
     "title": "Merge two sorted arrays in place (gap method)",
@@ -3507,5 +3515,3 @@
     "link": "https://leetcode.com/problems/stream-of-characters/"
   }
 ]
-
-
