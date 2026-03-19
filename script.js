@@ -7950,7 +7950,7 @@ function render() {
       const topicQuestions = questions.filter((q) => q.topic === topic);
       const progress = topicProgress(topic);
       const visible = grouped[topic];
-      const open = state.topicState[topic] !== false;
+      const open = state.topicState[topic] === true;
       const difficulties = ["Easy", "Medium", "Hard"]
         .map((diff) => {
           const list = visible?.[diff] || [];
