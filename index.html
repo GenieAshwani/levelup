@@ -1,152 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CodeForSuccess - Practice Sheets</title>
+    <title>CodeForSuccess DSA Sheet</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" type="image/png" href="/img/logo.png" />
   </head>
   <body>
-    <canvas id="bgCanvas"></canvas>
-    <!-- Gradient Backgrounds -->
-    <div class="gradient-top-right"></div>
-    <div class="gradient-bottom-left"></div>
-    <div class="blur-circle-1"></div>
-    <div class="blur-circle-2"></div>
-    <div class="noise-overlay"></div>
-
-    <!-- Header -->
-    <header class="header">
-      <div class="header-container">
-        <div class="logo-title">
-          <button class="menu-toggle" id="menuToggle">☰</button>
-          <a
-            href="https://codeforsuccess.in"
-            style="
-              display: flex;
-              align-items: center;
-              gap: 0.75rem;
-              text-decoration: none;
-              color: inherit;
-            "
-          >
-            <img src="/img/logo.png" alt="logo" class="logo" />
-            <span class="brand">CodeForSuccess</span>
-          </a>
-          <span class="page-title">Practice Sheets</span>
-        </div>
-    </header>
-
-    <!-- Sidebar Overlay for Mobile -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- Main Content -->
-    <div class="main-wrapper">
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-          <select class="dropdown">
-            <option>DSA Sheet</option>
-          </select>
-
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search by title, topic..."
-            class="search-input"
-          />
-        </div>
-
-        <div class="sidebar-scrollable-content">
-          <h2 class="section-title">Topics</h2>
-          <ul id="topicsList" class="topics-list"></ul>
-
-          <div class="patterns-section">
-            <h2 class="section-title">Select Pattern</h2>
-            <ul id="patternsList" class="patterns-list"></ul>
-          </div>
-        </div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-mark">CFS</div>
+        <nav>
+          <a class="nav-item active">DSA Sheet</a>
+        </nav>
       </aside>
 
-      <!-- Questions Section -->
-      <main class="questions-container">
-        <!-- Difficulty Buttons -->
-        <div class="difficulty-filters">
-          <button class="difficulty-btn active" data-difficulty="All">
-            All
-          </button>
-          <button class="difficulty-btn" data-difficulty="Easy">Easy</button>
-          <button class="difficulty-btn" data-difficulty="Medium">
-            Medium
-          </button>
-          <button class="difficulty-btn" data-difficulty="Hard">Hard</button>
-        </div>
+      <main class="main-content">
+        <header class="hero">
+          <div>
+            <span class="eyebrow">CodeForSuccess</span>
+            <h1>DSA Master Sheet</h1>
+            <p>
+              Topic-wise structured sheet with progress tracking, revision
+              stars, notes, and instant filtering.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <button id="resetBtn" class="ghost-btn">Reset Filters</button>
+            <button id="clearProgressBtn" class="ghost-btn danger">
+              Clear Progress
+            </button>
+          </div>
+        </header>
 
-        <!-- Questions Grid -->
-        <div id="questionsGrid" class="questions-grid"></div>
+        <section class="stats-grid">
+          <article class="stat-card primary">
+            <div class="ring"><span id="overallPercent">0%</span></div>
+            <div>
+              <p class="label">Overall Progress</p>
+              <h2>
+                <span id="totalSolved">0</span> /
+                <span id="totalQuestions">0</span>
+              </h2>
+              <div class="progress-bar"><span id="progressFill"></span></div>
+            </div>
+          </article>
+          <article class="stat-card">
+            <p class="label">Topics</p>
+            <h3 id="topicCount">0</h3>
+          </article>
+          <article class="stat-card">
+            <p class="label">Easy</p>
+            <h3 id="easyCount">0</h3>
+          </article>
+          <article class="stat-card">
+            <p class="label">Medium</p>
+            <h3 id="mediumCount">0</h3>
+          </article>
+          <article class="stat-card">
+            <p class="label">Hard</p>
+            <h3 id="hardCount">0</h3>
+          </article>
+        </section>
+
+        <section class="toolbar">
+          <div class="search-box">
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search by title, topic, pattern..."
+            />
+          </div>
+          <select id="difficultyFilter">
+            <option>All</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+          <select id="topicFilter"></select>
+          <select id="patternFilter"></select>
+          <button id="importantToggle" class="filter-chip">
+            Important only
+          </button>
+          <button id="revisionToggle" class="filter-chip">Revision only</button>
+          <button id="solvedToggle" class="filter-chip">Solved only</button>
+        </section>
+
+        <section id="topicList" class="topic-list"></section>
       </main>
     </div>
 
+    <dialog id="notesModal" class="notes-modal">
+      <div class="modal-head">
+        <h3 id="notesTitle">Notes</h3>
+        <button id="notesClose" class="icon-btn">✕</button>
+      </div>
+      <textarea
+        id="notesTextarea"
+        placeholder="Add your notes, edge cases, dry run, revision tips..."
+      ></textarea>
+      <div class="modal-actions">
+        <button id="notesDelete" class="ghost-btn danger">Delete</button>
+        <button id="notesSave" class="solid-btn">Save Note</button>
+      </div>
+    </dialog>
+
     <script src="script.js"></script>
-    <script>
-      const canvas = document.getElementById("bgCanvas");
-      const ctx = canvas.getContext("2d");
-
-      let particles = [];
-
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-
-      function createParticles() {
-        particles = [];
-        const particleCount = window.innerWidth < 768 ? 30 : 50; // Fewer particles on mobile
-        for (let i = 0; i < particleCount; i++) {
-          particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 1,
-            dx: (Math.random() - 0.5) * 0.3,
-            dy: (Math.random() - 0.5) * 0.3,
-          });
-        }
-      }
-
-      function drawParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#2feaaa";
-        ctx.globalAlpha = 0.6;
-        particles.forEach((p) => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fill();
-          p.x += p.dx;
-          p.y += p.dy;
-
-          // wrap around screen
-          if (p.x < 0) p.x = canvas.width;
-          if (p.x > canvas.width) p.x = 0;
-          if (p.y < 0) p.y = canvas.height;
-          if (p.y > canvas.height) p.y = 0;
-        });
-      }
-
-      function animate() {
-        drawParticles();
-        requestAnimationFrame(animate);
-      }
-
-      window.addEventListener("resize", () => {
-        resizeCanvas();
-        createParticles();
-      });
-
-      resizeCanvas();
-      createParticles();
-      animate();
-    </script>
   </body>
 </html>
-

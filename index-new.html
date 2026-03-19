@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeForSuccess - Array Practice</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="/img/logo.png" />
+    <style>
+      body {
+        background-color: #1e1e2f;
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #2a2a3b;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        color: #ffffff;
+      }
+      .logo img {
+        width: 50px;
+      }
+      .main-content {
+        padding: 2rem;
+      }
+      .progress-bar {
+        background-color: #444;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+      }
+      .progress-bar-inner {
+        height: 20px;
+        background-color: #2feaaa;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+      .question-section {
+        margin-bottom: 2rem;
+      }
+      .question-section h2 {
+        cursor: pointer;
+        background-color: #2a2a3b;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .question-section h2:hover {
+        background-color: #3a3a4b;
+      }
+      .question-list {
+        display: none;
+        padding: 1rem;
+        background-color: #2a2a3b;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+      }
+      .question-card {
+        background-color: #333;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .question-card h3 {
+        margin: 0;
+        color: #2feaaa;
+      }
+      .question-card p {
+        margin: 0.5rem 0;
+      }
+      .question-card a {
+        color: #7a5fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .question-card a:hover {
+        text-decoration: underline;
+      }
+      .question-card .actions {
+        display: flex;
+        gap: 1rem;
+      }
+      .question-card .actions button {
+        background-color: #2feaaa;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #000;
+        font-weight: bold;
+      }
+      .question-card .actions button:hover {
+        background-color: #1e9e7a;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="https://codeforsuccess.in" class="logo">
+        <img src="/img/logo.png" alt="CodeForSuccess Logo" />
+        <h1>CodeForSuccess</h1>
+      </a>
+      <h2>Array Practice Questions</h2>
+    </header>
+    <main class="main-content">
+      <div class="progress-bar">
+        <div class="progress-bar-inner" style="width: 10%;"></div>
+      </div>
+      <div class="question-section">
+        <h2 onclick="toggleSection(this)">Easy Questions <span>0/40</span></h2>
+        <div class="question-list">
+          <div class="question-card">
+            <h3>Reverse the array</h3>
+            <p>Reverse in-place using two pointers from both ends.</p>
+            <p>Difficulty: Easy</p>
+            <div class="actions">
+              <a href="https://www.geeksforgeeks.org/write-a-program-to-reverse-an-array/" target="_blank">Solve</a>
+              <button>Mark as Done</button>
+            </div>
+          </div>
+          <div class="question-card">
+            <h3>Find max & min in array</h3>
+            <p>Single pass tracking current minimum and maximum.</p>
+            <p>Difficulty: Easy</p>
+            <div class="actions">
+              <a href="https://www.geeksforgeeks.org/maximum-and-minimum-in-an-array/" target="_blank">Solve</a>
+              <button>Mark as Done</button>
+            </div>
+          </div>
+          <div class="question-card">
+            <h3>Kth Largest Element in an Array</h3>
+            <p>Single pass tracking current minimum and maximum.</p>
+            <p>Difficulty: Medium</p>
+            <div class="actions">
+              <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/description/" target="_blank">Solve</a>
+              <button>Mark as Done</button>
+            </div>
+          </div>
+          <div class="question-card">
+            <h3>Cyclically rotate by 1</h3>
+            <p>Rotate array by one position using temp+shift or reverse trick.</p>
+            <p>Difficulty: Easy</p>
+            <div class="actions">
+              <a href="https://www.geeksforgeeks.org/c-program-cyclically-rotate-array-one/" target="_blank">Solve</a>
+              <button>Mark as Done</button>
+            </div>
+          </div>
+          <div class="question-card">
+            <h3>Move negatives to one side (order not preserved)</h3>
+            <p>Partition array so negatives move to one side; order irrelevant.</p>
+            <p>Difficulty: Easy</p>
+            <div class="actions">
+              <a href="https://www.geeksforgeeks.org/move-negative-numbers-beginning-positive-end-constant-extra-space/" target="_blank">Solve</a>
+              <button>Mark as Done</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      function toggleSection(header) {
+        const list = header.nextElementSibling;
+        if (list.style.display === "block") {
+          list.style.display = "none";
+        } else {
+          list.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>

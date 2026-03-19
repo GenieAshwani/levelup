@@ -81,24 +81,7 @@
     "topic": "Array",
     "pattern": "Sorting & Partitioning",
     "difficulty": "Medium",
-    "link": "https://www.geeksforgeeks.org/merge-two-sorted-arrays-o1-extra-space/"
-  },
-  {
-    "title": "Union of two sorted arrays",
-    "description": "Two-pointer sweep to build the union without duplicates.",
-    "topic": "Array",
-    "pattern": "Two Pointers",
-    "difficulty": "Easy",
-    "link": "https://www.geeksforgeeks.org/union-of-two-sorted-arrays/",
-    "veryImportant": true
-  },
-  {
-    "title": "Intersection of two sorted arrays",
-    "description": "Two-pointer sweep to collect common elements.",
-    "topic": "Array",
-    "pattern": "Two Pointers",
-    "difficulty": "Easy",
-    "link": "https://www.geeksforgeeks.org/intersection-of-two-sorted-arrays/",
+    "link": "https://leetcode.com/problems/merge-sorted-array/description/",
     "veryImportant": true
   },
   {
@@ -115,7 +98,7 @@
     "description": "Three-pointer walk to gather common elements.",
     "topic": "Array",
     "pattern": "Two Pointers",
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "link": "https://www.geeksforgeeks.org/find-common-elements-three-sorted-arrays/",
     "veryImportant": true
   },
