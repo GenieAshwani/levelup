@@ -8062,7 +8062,7 @@ function getPatternsForTopic(topic) {
     return ["All", ...Array.from(allPatterns).sort()];
   }
   const patterns = new Set(
-    questions.filter((q) => q.topic === topic).map((q) => q.pattern)
+    questions.filter((q) => q.topic === topic).map((q) => q.pattern),
   );
   return ["All", ...Array.from(patterns).sort()];
 }
