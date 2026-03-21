@@ -7943,7 +7943,7 @@ function updateSummary() {
 function render() {
   updateSummary();
   const grouped = groupedQuestions();
-  const topicOrder = [...new Set(questions.map((q) => q.topic))];
+  const topicOrder = Object.keys(grouped);
 
   els.topicList.innerHTML = topicOrder
     .map((topic) => {
@@ -7952,6 +7952,10 @@ function render() {
       const visible = grouped[topic];
       const open = state.topicState[topic] === true;
       const difficulties = ["Easy", "Medium", "Hard"]
+        .filter((diff) => {
+          const list = visible?.[diff] || [];
+          return list.length > 0;
+        })
         .map((diff) => {
           const list = visible?.[diff] || [];
           const diffKey = `${topic}__${diff}`;
@@ -8052,15 +8056,38 @@ function closeNotes() {
   activeNoteId = null;
 }
 
-function initFilters() {
-  const topics = ["All", ...new Set(questions.map((q) => q.topic))];
-  const patterns = ["All", ...new Set(questions.map((q) => q.pattern).sort())];
-  els.topicFilter.innerHTML = topics
-    .map((v) => `<option value="${v}">${v}</option>`)
-    .join("");
+function getPatternsForTopic(topic) {
+  if (topic === "All") {
+    const allPatterns = new Set(questions.map((q) => q.pattern));
+    return ["All", ...Array.from(allPatterns).sort()];
+  }
+  const patterns = new Set(
+    questions.filter((q) => q.topic === topic).map((q) => q.pattern)
+  );
+  return ["All", ...Array.from(patterns).sort()];
+}
+
+function updatePatternDropdown(topic) {
+  const patterns = getPatternsForTopic(topic);
   els.patternFilter.innerHTML = patterns
     .map((v) => `<option value="${v}">${v}</option>`)
     .join("");
+
+  // If current pattern is not available, reset to "All"
+  if (!patterns.includes(state.pattern)) {
+    state.pattern = "All";
+    els.patternFilter.value = "All";
+  } else {
+    els.patternFilter.value = state.pattern;
+  }
+}
+
+function initFilters() {
+  const topics = ["All", ...new Set(questions.map((q) => q.topic))];
+  els.topicFilter.innerHTML = topics
+    .map((v) => `<option value="${v}">${v}</option>`)
+    .join("");
+  updatePatternDropdown("All");
 }
 
 function attachEvents() {
@@ -8074,6 +8101,7 @@ function attachEvents() {
   });
   els.topicFilter.addEventListener("change", (e) => {
     state.topic = e.target.value;
+    updatePatternDropdown(state.topic);
     render();
   });
   els.patternFilter.addEventListener("change", (e) => {
@@ -8106,7 +8134,7 @@ function attachEvents() {
     els.searchInput.value = "";
     els.difficultyFilter.value = "All";
     els.topicFilter.value = "All";
-    els.patternFilter.value = "All";
+    updatePatternDropdown("All");
     [els.importantToggle, els.revisionToggle, els.solvedToggle].forEach((btn) =>
       btn.classList.remove("active"),
     );
