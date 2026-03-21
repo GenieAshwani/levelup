@@ -7834,6 +7834,7 @@ const els = {
   easyCount: document.getElementById("easyCount"),
   mediumCount: document.getElementById("mediumCount"),
   hardCount: document.getElementById("hardCount"),
+  importantCount: document.getElementById("importantCount"),
   topicCount: document.getElementById("topicCount"),
   searchInput: document.getElementById("searchInput"),
   difficultyFilter: document.getElementById("difficultyFilter"),
@@ -7928,6 +7929,7 @@ function updateSummary() {
   const total = questions.length;
   const pct = total ? Math.round((solved / total) * 100) : 0;
   const stats = difficultyStats();
+  const importantQCount = questions.filter((q) => q.veryImportant).length;
   els.totalSolved.textContent = solved;
   els.totalQuestions.textContent = total;
   els.overallPercent.textContent = pct + "%";
@@ -7935,6 +7937,7 @@ function updateSummary() {
   els.easyCount.textContent = stats.Easy;
   els.mediumCount.textContent = stats.Medium;
   els.hardCount.textContent = stats.Hard;
+  els.importantCount.textContent = importantQCount;
   els.topicCount.textContent = [
     ...new Set(questions.map((q) => q.topic)),
   ].length;
