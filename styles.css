@@ -450,6 +450,16 @@ thead th {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 138, 31, 0.18) inset;
 }
+.check-wrap input:checked + span::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #161616;
+  font-size: 14px;
+  font-weight: 800;
+}
 .notes-modal {
   width: min(680px, calc(100vw - 24px));
   border: none;
