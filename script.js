@@ -29,6 +29,7 @@ const questions = [
     link: "https://leetcode.com/problems/kth-largest-element-in-an-array/description/",
     veryImportant: false,
   },
+
   {
     id: "array-4",
     title: "Cyclically rotate by 1",
@@ -38,6 +39,17 @@ const questions = [
     pattern: "Two Pointers",
     difficulty: "Easy",
     link: "https://www.geeksforgeeks.org/c-program-cyclically-rotate-array-one/",
+    veryImportant: true,
+  },
+  {
+    id: "array-4.1",
+    title: "Rotate Array by k steps",
+    description:
+      "Rotate array right by k steps using shifting or reversal (O(1) space).",
+    topic: "Array",
+    pattern: "General",
+    difficulty: "Easy",
+    link: "https://leetcode.com/problems/rotate-array/description/",
     veryImportant: true,
   },
   {
