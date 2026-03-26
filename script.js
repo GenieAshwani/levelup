@@ -54,13 +54,13 @@ const questions = [
   },
   {
     id: "array-5",
-    title: "Move negatives to one side (order not preserved)",
+    title: "Move all negative elements to end",
     description:
       "Partition array so negatives move to one side; order irrelevant.",
     topic: "Array",
     pattern: "Sorting & Two Pointers",
     difficulty: "Easy",
-    link: "https://www.geeksforgeeks.org/move-negative-numbers-beginning-positive-end-constant-extra-space/",
+    link: "https://www.geeksforgeeks.org/problems/move-all-negative-elements-to-end1813/1",
     veryImportant: true,
   },
   {
