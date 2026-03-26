@@ -124,8 +124,18 @@ const questions = [
       "Two pointers from both ends to find target sum in a sorted array.",
     topic: "Array",
     pattern: "Two Pointers",
-    difficulty: "Easy",
+    difficulty: "Medium",
     link: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+    veryImportant: true,
+  },
+  {
+    id: "array-12.1",
+    title: "Find Common Elements Between Two Arrays",
+    description: "Three-pointer walk to gather common elements.",
+    topic: "Array",
+    pattern: "Two Pointers",
+    difficulty: "Easy",
+    link: "https://leetcode.com/problems/find-common-elements-between-two-arrays/description/",
     veryImportant: true,
   },
   {
@@ -138,6 +148,7 @@ const questions = [
     link: "https://www.geeksforgeeks.org/find-common-elements-three-sorted-arrays/",
     veryImportant: true,
   },
+
   {
     id: "array-13",
     title: "Minimum Absolute Difference (sorted)",
