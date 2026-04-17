@@ -133,7 +133,7 @@ const questions = [
     title: "Find Common Elements Between Two Arrays",
     description: "Three-pointer walk to gather common elements.",
     topic: "Array",
-    pattern: "Two Pointers",
+    pattern: "Two Pointers & HashSet",
     difficulty: "Easy",
     link: "https://leetcode.com/problems/find-common-elements-between-two-arrays/description/",
     veryImportant: true,
@@ -143,7 +143,7 @@ const questions = [
     title: "Common elements in 3 sorted arrays",
     description: "Three-pointer walk to gather common elements.",
     topic: "Array",
-    pattern: "Two Pointers",
+    pattern: "Three Pointers",
     difficulty: "Easy",
     link: "https://www.geeksforgeeks.org/find-common-elements-three-sorted-arrays/",
     veryImportant: true,
@@ -7895,8 +7895,8 @@ function saveState() {
   );
 }
 
-function groupedQuestions() {
-  const filtered = questions.filter((q) => {
+function getFilteredQuestions() {
+  return questions.filter((q) => {
     const text =
       `${q.title} ${q.description} ${q.topic} ${q.pattern}`.toLowerCase();
     const matchSearch = !state.search || text.includes(state.search);
@@ -7917,9 +7917,11 @@ function groupedQuestions() {
       matchSolved
     );
   });
+}
 
+function groupedQuestions(filteredQuestions = getFilteredQuestions()) {
   const grouped = {};
-  filtered.forEach((q) => {
+  filteredQuestions.forEach((q) => {
     grouped[q.topic] ??= { Easy: [], Medium: [], Hard: [] };
     grouped[q.topic][q.difficulty] ??= [];
     grouped[q.topic][q.difficulty].push(q);
@@ -7927,8 +7929,8 @@ function groupedQuestions() {
   return grouped;
 }
 
-function topicProgress(topic) {
-  const topicQuestions = questions.filter((q) => q.topic === topic);
+function topicProgress(topic, filteredQuestions = getFilteredQuestions()) {
+  const topicQuestions = filteredQuestions.filter((q) => q.topic === topic);
   const solved = topicQuestions.filter((q) => state.solved.has(q.id)).length;
   return {
     solved,
@@ -7939,20 +7941,20 @@ function topicProgress(topic) {
   };
 }
 
-function difficultyStats() {
+function difficultyStats(filteredQuestions = getFilteredQuestions()) {
   return {
-    Easy: questions.filter((q) => q.difficulty === "Easy").length,
-    Medium: questions.filter((q) => q.difficulty === "Medium").length,
-    Hard: questions.filter((q) => q.difficulty === "Hard").length,
+    Easy: filteredQuestions.filter((q) => q.difficulty === "Easy").length,
+    Medium: filteredQuestions.filter((q) => q.difficulty === "Medium").length,
+    Hard: filteredQuestions.filter((q) => q.difficulty === "Hard").length,
   };
 }
 
-function updateSummary() {
-  const solved = state.solved.size;
-  const total = questions.length;
+function updateSummary(filteredQuestions = getFilteredQuestions()) {
+  const solved = filteredQuestions.filter((q) => state.solved.has(q.id)).length;
+  const total = filteredQuestions.length;
   const pct = total ? Math.round((solved / total) * 100) : 0;
-  const stats = difficultyStats();
-  const importantQCount = questions.filter((q) => q.veryImportant).length;
+  const stats = difficultyStats(filteredQuestions);
+  const importantQCount = filteredQuestions.filter((q) => q.veryImportant).length;
   els.totalSolved.textContent = solved;
   els.totalQuestions.textContent = total;
   els.overallPercent.textContent = pct + "%";
@@ -7962,19 +7964,20 @@ function updateSummary() {
   els.hardCount.textContent = stats.Hard;
   els.importantCount.textContent = importantQCount;
   els.topicCount.textContent = [
-    ...new Set(questions.map((q) => q.topic)),
+    ...new Set(filteredQuestions.map((q) => q.topic)),
   ].length;
 }
 
 function render() {
-  updateSummary();
-  const grouped = groupedQuestions();
+  const filteredQuestions = getFilteredQuestions();
+  updateSummary(filteredQuestions);
+  const grouped = groupedQuestions(filteredQuestions);
   const topicOrder = Object.keys(grouped);
 
   els.topicList.innerHTML = topicOrder
     .map((topic) => {
-      const topicQuestions = questions.filter((q) => q.topic === topic);
-      const progress = topicProgress(topic);
+      const topicQuestions = filteredQuestions.filter((q) => q.topic === topic);
+      const progress = topicProgress(topic, filteredQuestions);
       const visible = grouped[topic];
       const open = state.topicState[topic] === true;
       const difficulties = ["Easy", "Medium", "Hard"]
