@@ -113,7 +113,7 @@ const questions = [
     description: "Use Shell gap method to merge with O(1) extra space.",
     topic: "Array",
     pattern: "Sorting & Partitioning",
-    difficulty: "Medium",
+    difficulty: "Easy",
     link: "https://leetcode.com/problems/merge-sorted-array/description/",
     veryImportant: true,
   },
@@ -7954,7 +7954,9 @@ function updateSummary(filteredQuestions = getFilteredQuestions()) {
   const total = filteredQuestions.length;
   const pct = total ? Math.round((solved / total) * 100) : 0;
   const stats = difficultyStats(filteredQuestions);
-  const importantQCount = filteredQuestions.filter((q) => q.veryImportant).length;
+  const importantQCount = filteredQuestions.filter(
+    (q) => q.veryImportant,
+  ).length;
   els.totalSolved.textContent = solved;
   els.totalQuestions.textContent = total;
   els.overallPercent.textContent = pct + "%";
