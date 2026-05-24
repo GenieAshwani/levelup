@@ -283,16 +283,6 @@ const questions = [
     veryImportant: true,
   },
   {
-    id: "array-26",
-    title: "Elements appearing > n/k (generalized majority)",
-    description: "Generalized Boyer–Moore to track up to k−1 candidates.",
-    topic: "Array",
-    pattern: "Boyer–Moore Voting (Majority)",
-    difficulty: "Medium",
-    link: "https://www.geeksforgeeks.org/count-elements-occur-more-than-nk-times/",
-    veryImportant: true,
-  },
-  {
     id: "array-27",
     title: "Range Frequency Queries",
     description:
