@@ -283,6 +283,16 @@ const questions = [
     veryImportant: true,
   },
   {
+    id: "array-26",
+    title: "Sort Colors",
+    description: "Three-way partitioning to sort an array of 0s, 1s, and 2s.",
+    topic: "Array",
+    pattern: "Three pointers",
+    difficulty: "Medium",
+    link: "https://leetcode.com/problems/sort-colors/description/",
+    veryImportant: true,
+  },
+  {
     id: "array-27",
     title: "Range Frequency Queries",
     description:
@@ -331,7 +341,7 @@ const questions = [
     description:
       "Sort, fix one index, and use two pointers to find unique triplets that sum to zero.",
     topic: "Array",
-    pattern: "Two Pointers",
+    pattern: "Sorting & Two Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/3sum/",
     veryImportant: true,
@@ -417,7 +427,7 @@ const questions = [
     description:
       "Sort, then fix i and two-pointer from both ends to track the closest sum.",
     topic: "Array",
-    pattern: "Two Pointers",
+    pattern: "Sorting & Two Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/3sum-closest/",
     veryImportant: true,
@@ -428,7 +438,7 @@ const questions = [
     description:
       "Generalize k-sum: sort, fix two indices, then two-pointer for the rest; dedupe carefully.",
     topic: "Array",
-    pattern: "Two Pointers",
+    pattern: "Sorting & Two Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/4sum/",
     veryImportant: true,
@@ -868,7 +878,7 @@ const questions = [
     description:
       "Sort unique values and use sliding window/two pointers to fit into length-n range.",
     topic: "Array",
-    pattern: "Two Pointers",
+    pattern: "Sorting & Two Pointers",
     difficulty: "Hard",
     link: "https://leetcode.com/problems/minimum-number-of-operations-to-make-array-continuous/",
     veryImportant: false,
@@ -2536,7 +2546,7 @@ const questions = [
     description:
       "Find three integers that sum closest to target using two pointers.",
     topic: "Searching",
-    pattern: "Two Pointers",
+    pattern: "Sorting & Two Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/3sum-closest/",
     veryImportant: false,
@@ -2580,7 +2590,7 @@ const questions = [
     description:
       "Find k closest elements to x in sorted array using binary search + two pointers.",
     topic: "Searching",
-    pattern: "Binary Search",
+    pattern: "Binary Search & Two Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/find-k-closest-elements/",
     veryImportant: false,
@@ -2734,7 +2744,7 @@ const questions = [
     description:
       "Find the maximum sum less than K using two pointers after sorting.",
     topic: "Searching",
-    pattern: "Two Pointers",
+    pattern: "Sorting & Two Pointers",
     difficulty: "Easy",
     link: "https://leetcode.com/problems/two-sum-less-than-k/",
     veryImportant: true,
@@ -3116,7 +3126,7 @@ const questions = [
     description:
       "Find k closest elements to a given value in a sorted array using binary search and two pointers.",
     topic: "Sorting",
-    pattern: "Two Pointers",
+    pattern: "Binary Search & Two Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/find-k-closest-elements/",
     veryImportant: false,
@@ -3314,7 +3324,7 @@ const questions = [
     description:
       "Assign work to maximize profit by sorting difficulty and using two pointers.",
     topic: "Sorting",
-    pattern: "Two Pointers",
+    pattern: "Sorting & Two Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/most-profit-assigning-work/",
     veryImportant: false,
@@ -7893,7 +7903,10 @@ function getFilteredQuestions() {
     const matchDifficulty =
       state.difficulty === "All" || q.difficulty === state.difficulty;
     const matchTopic = state.topic === "All" || q.topic === state.topic;
-    const matchPattern = state.pattern === "All" || q.pattern === state.pattern;
+    const matchPattern =
+      state.pattern === "All" ||
+      q.pattern === state.pattern ||
+      getPatternParts(q.pattern).includes(state.pattern);
     const matchImportant = !state.importantOnly || q.veryImportant;
     const matchRevision = !state.revisionOnly || state.starred.has(q.id);
     const matchSolved = !state.solvedOnly || state.solved.has(q.id);
@@ -8077,14 +8090,18 @@ function closeNotes() {
   activeNoteId = null;
 }
 
+function getPatternParts(pattern) {
+  return pattern.split(/\s*(?:&|\+)\s*/);
+}
+
 function getPatternsForTopic(topic) {
-  if (topic === "All") {
-    const allPatterns = new Set(questions.map((q) => q.pattern));
-    return ["All", ...Array.from(allPatterns).sort()];
-  }
-  const patterns = new Set(
-    questions.filter((q) => q.topic === topic).map((q) => q.pattern),
-  );
+  const topicQuestions =
+    topic === "All" ? questions : questions.filter((q) => q.topic === topic);
+  const patterns = new Set();
+  topicQuestions.forEach((q) => {
+    patterns.add(q.pattern);
+    getPatternParts(q.pattern).forEach((pattern) => patterns.add(pattern));
+  });
   return ["All", ...Array.from(patterns).sort()];
 }
 
