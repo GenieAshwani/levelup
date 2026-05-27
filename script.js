@@ -287,7 +287,7 @@ const questions = [
     title: "Sort Colors",
     description: "Three-way partitioning to sort an array of 0s, 1s, and 2s.",
     topic: "Array",
-    pattern: "Three pointers",
+    pattern: "Three Pointers",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/sort-colors/description/",
     veryImportant: true,
