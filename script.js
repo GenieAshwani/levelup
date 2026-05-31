@@ -98,7 +98,7 @@ const questions = [
   },
   {
     id: "array-9",
-    title: "MMinimum Swaps to Group All 1's Together II",
+    title: "Minimum Swaps to Group All 1's Together II",
     description:
       "Sliding window to minimize swaps grouping elements ≤ K together.",
     topic: "Array",
@@ -187,7 +187,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Easy",
     link: "https://www.geeksforgeeks.org/max-sum-subarray-of-size-k/",
-    veryImportant: false,
+    veryImportant: true,
   },
   {
     id: "array-17",
@@ -763,7 +763,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Hard",
     link: "https://leetcode.com/problems/subarrays-with-k-different-integers/",
-    veryImportant: false,
+    veryImportant: true,
   },
   {
     id: "array-72",
@@ -816,16 +816,6 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/",
-    veryImportant: false,
-  },
-  {
-    id: "array-77",
-    title: "Minimum Swaps to Group All 1's Together II",
-    description: "Handle circular case by doubling array or modular window.",
-    topic: "Array",
-    pattern: "Sliding Window",
-    difficulty: "Medium",
-    link: "https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together-ii/",
     veryImportant: false,
   },
   {
@@ -1011,7 +1001,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/subarray-product-less-than-k/",
-    veryImportant: false,
+    veryImportant: true,
   },
   {
     id: "array-95",
@@ -1282,7 +1272,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
-    veryImportant: false,
+    veryImportant: true,
   },
   {
     id: "strings-120",
@@ -1304,7 +1294,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Hard",
     link: "https://leetcode.com/problems/minimum-window-substring/",
-    veryImportant: false,
+    veryImportant: true,
   },
   {
     id: "strings-122",
@@ -1431,7 +1421,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Hard",
     link: "https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/",
-    veryImportant: false,
+    veryImportant: true,
   },
   {
     id: "strings-134",
@@ -3596,7 +3586,7 @@ const questions = [
     description:
       "Construct longest possible string without 'aaa', 'bbb' or 'ccc' using greedy approach.",
     topic: "Strings",
-    pattern: "Sliding Window",
+    pattern: "Greedy",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/longest-happy-string/",
     veryImportant: false,
@@ -5133,7 +5123,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
-    veryImportant: true,
+    veryImportant: false,
   },
   {
     id: "hashing-474",
@@ -5144,7 +5134,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Hard",
     link: "https://leetcode.com/problems/minimum-window-substring/",
-    veryImportant: true,
+    veryImportant: false,
   },
   {
     id: "hashing-475",
@@ -5155,7 +5145,7 @@ const questions = [
     pattern: "Sliding Window",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
-    veryImportant: true,
+    veryImportant: false,
   },
   {
     id: "hashing-476",
@@ -7818,6 +7808,17 @@ const questions = [
     link: "https://leetcode.com/problems/different-ways-to-add-parentheses/",
     veryImportant: false,
   },
+  {
+    id: "array-727",
+    title: "Maximum Average Subarray I",
+    description:
+      "Find the maximum average of any contiguous subarray of length k.",
+    topic: "Array",
+    pattern: "Sliding Window",
+    difficulty: "Easy",
+    link: "https://leetcode.com/problems/maximum-average-subarray-i/description/",
+    veryImportant: true,
+  },
 ];
 
 const STORAGE_KEYS = {
@@ -7902,7 +7903,11 @@ function getFilteredQuestions() {
     const matchSearch = !state.search || text.includes(state.search);
     const matchDifficulty =
       state.difficulty === "All" || q.difficulty === state.difficulty;
-    const matchTopic = state.topic === "All" || q.topic === state.topic;
+    const matchTopic =
+      state.topic === "All" ||
+      q.topic === state.topic ||
+      q.pattern === state.topic ||
+      getPatternParts(q.pattern).includes(state.topic);
     const matchPattern =
       state.pattern === "All" ||
       q.pattern === state.pattern ||
@@ -7922,18 +7927,32 @@ function getFilteredQuestions() {
   });
 }
 
+function getDisplayTopic(q) {
+  if (
+    state.topic !== "All" &&
+    (q.pattern === state.topic ||
+      getPatternParts(q.pattern).includes(state.topic))
+  ) {
+    return state.topic;
+  }
+  return q.topic;
+}
+
 function groupedQuestions(filteredQuestions = getFilteredQuestions()) {
   const grouped = {};
   filteredQuestions.forEach((q) => {
-    grouped[q.topic] ??= { Easy: [], Medium: [], Hard: [] };
-    grouped[q.topic][q.difficulty] ??= [];
-    grouped[q.topic][q.difficulty].push(q);
+    const topic = getDisplayTopic(q);
+    grouped[topic] ??= { Easy: [], Medium: [], Hard: [] };
+    grouped[topic][q.difficulty] ??= [];
+    grouped[topic][q.difficulty].push(q);
   });
   return grouped;
 }
 
 function topicProgress(topic, filteredQuestions = getFilteredQuestions()) {
-  const topicQuestions = filteredQuestions.filter((q) => q.topic === topic);
+  const topicQuestions = filteredQuestions.filter(
+    (q) => getDisplayTopic(q) === topic,
+  );
   const solved = topicQuestions.filter((q) => state.solved.has(q.id)).length;
   return {
     solved,
@@ -7969,7 +7988,7 @@ function updateSummary(filteredQuestions = getFilteredQuestions()) {
   els.hardCount.textContent = stats.Hard;
   els.importantCount.textContent = importantQCount;
   els.topicCount.textContent = [
-    ...new Set(filteredQuestions.map((q) => q.topic)),
+    ...new Set(filteredQuestions.map((q) => getDisplayTopic(q))),
   ].length;
 }
 
@@ -7981,7 +8000,9 @@ function render() {
 
   els.topicList.innerHTML = topicOrder
     .map((topic) => {
-      const topicQuestions = filteredQuestions.filter((q) => q.topic === topic);
+      const topicQuestions = filteredQuestions.filter(
+        (q) => getDisplayTopic(q) === topic,
+      );
       const progress = topicProgress(topic, filteredQuestions);
       const visible = grouped[topic];
       const open = state.topicState[topic] === true;
@@ -8096,7 +8117,14 @@ function getPatternParts(pattern) {
 
 function getPatternsForTopic(topic) {
   const topicQuestions =
-    topic === "All" ? questions : questions.filter((q) => q.topic === topic);
+    topic === "All"
+      ? questions
+      : questions.filter(
+          (q) =>
+            q.topic === topic ||
+            q.pattern === topic ||
+            getPatternParts(q.pattern).includes(topic),
+        );
   const patterns = new Set();
   topicQuestions.forEach((q) => {
     patterns.add(q.pattern);
@@ -8121,7 +8149,15 @@ function updatePatternDropdown(topic) {
 }
 
 function initFilters() {
-  const topics = ["All", ...new Set(questions.map((q) => q.topic))];
+  const topicSet = new Set(questions.map((q) => q.topic));
+  const hasSlidingWindow = questions.some((q) =>
+    getPatternParts(q.pattern).includes("Sliding Window"),
+  );
+  const topics = [
+    "All",
+    ...(hasSlidingWindow ? ["Sliding Window"] : []),
+    ...[...topicSet].filter((topic) => topic !== "Sliding Window"),
+  ];
   els.topicFilter.innerHTML = topics
     .map((v) => `<option value="${v}">${v}</option>`)
     .join("");
