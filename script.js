@@ -807,17 +807,7 @@ const questions = [
     link: "https://leetcode.com/problems/k-closest-points-to-origin/",
     veryImportant: false,
   },
-  {
-    id: "array-76",
-    title: "Minimum Swaps to Group All 1's Together",
-    description:
-      "Fixed-size window of ones; compute min swaps as window size − ones.",
-    topic: "Array",
-    pattern: "Sliding Window",
-    difficulty: "Medium",
-    link: "https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/",
-    veryImportant: false,
-  },
+
   {
     id: "array-78",
     title: "Minimum Operations to Reduce X to Zero",
