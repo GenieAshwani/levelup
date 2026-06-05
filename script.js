@@ -5013,7 +5013,7 @@ const questions = [
     title: "Subarray Sum Equals K",
     description:
       "Find the number of subarrays that sum to K using a prefix sum and hash map.",
-    topic: "Hashing",
+    topic: "Array",
     pattern: "Prefix Sum",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/subarray-sum-equals-k/",
@@ -5024,7 +5024,7 @@ const questions = [
     title: "Continuous Subarray Sum",
     description:
       "Check if array has a continuous subarray of size at least 2 with sum divisible by k.",
-    topic: "Hashing",
+    topic: "Array",
     pattern: "Prefix Sum",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/continuous-subarray-sum/",
@@ -5035,7 +5035,7 @@ const questions = [
     title: "Longest Consecutive Sequence",
     description:
       "Find the length of the longest consecutive elements sequence in an unsorted array.",
-    topic: "Hashing",
+    topic: "Array",
     pattern: "Hash Map / Set",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/longest-consecutive-sequence/",
