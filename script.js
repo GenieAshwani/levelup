@@ -369,16 +369,6 @@ const questions = [
     veryImportant: true,
   },
   {
-    id: "array-34",
-    title: "Subarray Sum Equals K",
-    description: "Prefix sum with hashmap counting occurrences of (sum − K).",
-    topic: "Array",
-    pattern: "Prefix Sum",
-    difficulty: "Medium",
-    link: "https://leetcode.com/problems/subarray-sum-equals-k/",
-    veryImportant: true,
-  },
-  {
     id: "array-35",
     title: "Product of Array Except Self",
     description:
